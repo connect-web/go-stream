@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package scraper;
+
+service ScraperService {
+  rpc SubmitTask (WebTask) returns (WebTaskId);
+  rpc GetTask (WebTaskId) returns (WebTaskResponse);
+
+}
+
+message WebTask {
+  string url = 1;
+  string method = 2;
+  map<string, string> headers = 3;
+  map<string, string> parameters = 4; // for GET requests
+  bytes body = 5; // POST requests
+  string contentType = 6; // POST requests
+}
+
+message WebTaskId {
+  bytes taskId = 1;
+}
+
+message WebTaskResponse{
+  int32 StatusCode = 1;
+  int64 ContentLength = 2;
+  bytes Body = 3;
+  map<string, string> headers = 4;
+}
